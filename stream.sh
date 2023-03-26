@@ -4,11 +4,5 @@ set -e
 
 while true
 do
-  ffmpeg -loglevel info -y -re \
-    -f image2 -loop 1 -i bg.png \
-    -f concat -safe 0 -i <((for f in ./mp3/*.mp3; do path="$PWD/$f"; echo "file ${path@Q}"; done) | shuf) \
-    -c:v libx264 -preset veryfast -b:v 3000k -maxrate 3000k -bufsize 6000k \
-    -framerate 25 -video_size 1280x720 -vf "format=yuv420p" -g 50 -shortest -strict experimental \
-    -c:a aac -b:a 128k -ar 44100 \
-    -f flv rtmp://a.rtmp.youtube.com/live2/$YOUTUBE_KEY
+  ffmpeg -method POST -headers "User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:89.0) Gecko/20100101 Firefox/89.0"  -stream_loop -1 -re -i https://5b8462eb3469a.streamlock.net:444/copbfl1/copbfl1.stream/chunklist_w1943310215.m3u8  -stream_loop -1 -re -i https://stream-43.zeno.fm/q5wu63rg2c9uv?zs=Ac_OpxqARC-kKObUG4LcHQ   -vcodec libx264 -pix_fmt yuvj420p -maxrate 20048k -preset veryfast -r 12 -framerate 30 -g 50 -c:a aac -b:a 128k -ar 44100 -strict experimental -video_track_timescale 1000 -b:v 150000k -f flv rtmp://livepush.trovo.live/live/$KEY
 done
