@@ -4,7 +4,7 @@
   "repository": "https://github.com/foxtacles/youtube-live-radio",
   "stack": "container",
   "env": {
-    "YOUTUBE_KEY": {
+    "KEY": {
       "description": "The YouTube live stream key to be used. Can be found in the YouTube UI",
       "required": true
     }
